@@ -6,9 +6,6 @@ declare -A ALIAS_CONFIGS=(
     ["vik"]="nvim-vik"
     ["nvimA"]=""
     ["nvimB"]=""
-    ["nvim"]="nvimA"
-    ["vim"]="nvim-cln"
-    ["vi"]="nvim-cln"
 )
 
 # Function to check if a string is a valid repository URL
