@@ -1,11 +1,12 @@
 local opt = vim.opt
 
 opt.fileformat      = "unix"
-opt.mouse           = "a"
+opt.mouse           = ""
 opt.termguicolors   = true
 opt.lazyredraw      = true  -- helps performane in some situations
 opt.updatetime      = 1000  -- saves to disk every second (2s default)
 opt.laststatus      = 3     -- for statusline ?!
+--vim.opt.clipboard:append("unnamedplus")   -- yank to clipboard
 
 -- insert mode: ctrl-p / ctrl-n
 opt.completeopt     = { "menuone", "noinsert", "noselect" }
