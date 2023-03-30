@@ -1,0 +1,40 @@
+# NVIM aliases
+declare -A ALIAS_CONFIGS=(
+    ["nvim-cln"]="https://github.com/clneagu/nvim"
+    ["vic"]="nvim-cln"
+    ["nvim-vik"]="https://github.com/victornswd/nvim"
+    ["vik"]="nvim-vik"
+    ["nvimA"]=""
+    ["nvimB"]=""
+    ["nvim"]="nvimA"
+    ["vim"]="nvim-cln"
+    ["vi"]="nvim-cln"
+)
+
+# Function to check if a string is a valid repository URL
+is_repo() {
+    local http_git_pattern='^(https?|git)://.+'
+    local ssh_pattern='^[^@]+@[^:]+:.+\.git$'
+
+    [[ $1 =~ $http_git_pattern || $1 =~ $ssh_pattern ]]
+}
+
+for alias_name in "${!ALIAS_CONFIGS[@]}"
+do
+    dest_dir="$HOME/.config/$alias_name"
+    alias_value="${ALIAS_CONFIGS[$alias_name]}"
+    [ -z "$alias_value" ] && alias_value="$alias_name"
+    nvim_appname="$alias_value"
+
+    if  is_repo "$alias_value"; then
+        nvim_appname="$alias_name"
+        [ ! -d "$dest_dir" ] && git clone "$alias_value" "$dest_dir"
+    fi
+
+    # Create the alias command
+    alias_cmd="alias $alias_name=\"NVIM_APPNAME=$nvim_appname \\nvim\""
+    #echo "$alias_cmd"
+    
+    # Evaluate the alias command
+    eval "$alias_cmd"
+done
